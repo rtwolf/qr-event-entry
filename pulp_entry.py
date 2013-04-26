@@ -1,6 +1,6 @@
 # PULP entry thing - pulpartparty.ca
 
-import pprint, os, re, sys, time, zbar, StringIO, pyglet
+import pprint, os, re, sys, time, zbar, StringIO
 from os import walk
 from sys import argv
 from subprocess import Popen, PIPE
@@ -73,9 +73,8 @@ def main(list_to_use, out=sys.stdout):
 	# inspired by this: http://lateral.netmanagers.com.ar/weblog/posts/BB913.html then updated with subprocess
 	# p = Popen(["zbarcam", "--raw"], stdout = PIPE)
 	entry_success = colored("\nYou're in!", 'blue')
-	song = pyglet.media.load('Windows Exclamation.wav')
-	song.play()
-	pyglet.app.run()
+	p = Popen(["mplayer-svn-36172/mplayer.exe", "Spring Break Yeah.wav"], stdout = PIPE)
+
 	while user_input != "exit":
 		guest_list = load_guests(list_to_use)
 		# print p.stdout.readline()
@@ -92,15 +91,18 @@ def main(list_to_use, out=sys.stdout):
 			# pp.pprint(results)
 			if len(results) == 0: # no match - could be already in
 				out.write("\nNo ticket found. Try again!")
+				p = Popen(["mplayer-svn-36172/mplayer.exe", "Super Mario Brothers - Song when Mario Dies.wav"], stdout = PIPE)
 			elif len(results) == 1: # one match found, just hit enter
 				pp.pprint(results[0].split(","))
 				if user_input == results[0].split(",")[0]:
 					out.write(entry_success)
+					p = Popen(["mplayer-svn-36172/mplayer.exe", "Spring Break Yeah.wav"], stdout = PIPE)
 					entry(results[0])
 				else:
 					get_response = raw_input(colored("\nPress enter to accept it or type 'x' to search again: ", 'green'))
 					if get_response == "":
 						out.write(entry_success)
+						p = Popen(["mplayer-svn-36172/mplayer.exe", "Spring Break Yeah.wav"], stdout = PIPE)
 						entry(results[0])
 					elif get_response == "exit":
 						out.write("\nGood bye!")
@@ -118,6 +120,7 @@ def main(list_to_use, out=sys.stdout):
 					selection = raw_input("\nHit enter to select the first one, enter a ticket number, or enter any letter to exit: ")
 					if selection == "":
 						out.write(entry_success)
+						p = Popen(["mplayer-svn-36172/mplayer.exe", "Spring Break Yeah.wav"], stdout = PIPE)
 						pp.pprint(results[0])
 						entry(results[0])
 						# selection = "0"
@@ -125,6 +128,7 @@ def main(list_to_use, out=sys.stdout):
 						break
 					if int(selection) >= 1 and int(selection) <= len(results):
 						out.write(entry_success)
+						p = Popen(["mplayer-svn-36172/mplayer.exe", "Spring Break Yeah.wav"], stdout = PIPE)
 						pp.pprint(results[int(selection) - 1])
 						entry(results[int(selection) - 1])
 					else:
